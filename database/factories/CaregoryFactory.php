@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Caregory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Illuminate\Support\Str;
 class CaregoryFactory extends Factory
 {
     /**
@@ -21,8 +21,10 @@ class CaregoryFactory extends Factory
      */
     public function definition()
     {
+        $word= $this->faker->word;
         return [
-            //
+            'name'=> $word,
+            'slug'=> Str::slug($word),
         ];
     }
 }

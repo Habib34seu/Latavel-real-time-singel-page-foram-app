@@ -19,7 +19,7 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function likes(Type $var = null)
+    public function like(Type $var = null)
     {
         return $this->hasMany(Like::class);
     }
