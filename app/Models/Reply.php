@@ -11,6 +11,7 @@ use App\Models\Like;
 class Reply extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function question(Type $var = null)
     {
         return $this->belongsTo(Question::class);

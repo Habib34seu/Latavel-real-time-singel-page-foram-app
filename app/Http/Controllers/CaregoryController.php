@@ -6,7 +6,7 @@ use App\Models\Caregory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\CategoryResource;
 class CaregoryController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class CaregoryController extends Controller
      */
     public function index()
     {
-        return Caregory::get();
+        return CategoryResource::collection(Caregory::get());
     }
     /**
      * Store a newly created resource in storage.
@@ -43,7 +43,7 @@ class CaregoryController extends Controller
      */
     public function show(Caregory $category)
     {
-       return $category;
+       return new CategoryResource($category);
     }
 
 

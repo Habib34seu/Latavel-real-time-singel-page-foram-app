@@ -27,6 +27,7 @@ class Question extends Model
 
     public function replies(Type $var = null)
     {
+
         return $this->hasMany(Reply::class);
     }
     public function category(Type $var = null)
