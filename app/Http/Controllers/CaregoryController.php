@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Caregory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class CaregoryController extends Controller
 {
@@ -14,19 +16,8 @@ class CaregoryController extends Controller
      */
     public function index()
     {
-        //
+        return Caregory::get();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +26,13 @@ class CaregoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Caregory::create($request->all());
+        $category = new Caregory;
+        $category ->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->save();
+        return response('create', Response::HTTP_CREATED);
+
     }
 
     /**
@@ -44,21 +41,12 @@ class CaregoryController extends Controller
      * @param  \App\Models\Caregory  $caregory
      * @return \Illuminate\Http\Response
      */
-    public function show(Caregory $caregory)
+    public function show(Caregory $category)
     {
-        //
+       return $category;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Caregory  $caregory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Caregory $caregory)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +55,15 @@ class CaregoryController extends Controller
      * @param  \App\Models\Caregory  $caregory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Caregory $caregory)
+    public function update(Request $request, Caregory $category)
     {
-        //
+        $category->update(
+            [
+                'name'=>$request->name,
+                'slug'=>Str::slug($request->name),
+            ]
+        );
+        return response('updated',Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -78,8 +72,9 @@ class CaregoryController extends Controller
      * @param  \App\Models\Caregory  $caregory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Caregory $caregory)
+    public function destroy(Caregory $category)
     {
-        //
+        $category->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
 }
